@@ -1,0 +1,27 @@
+{
+  "name": "telegram-reminder-bot",
+  "version": "1.0.0",
+  "description": "Reminder bot with web interface",
+  "main": "src/server.js",
+  "scripts": {
+    "start": "node src/server.js",
+    "dev": "nodemon src/server.js",
+    "migrate": "node src/database/migrate.js",
+    "bot": "node src/bot/scheduler.js"
+  },
+  "dependencies": {
+    "fastify": "^4.24.0",
+    "@fastify/static": "^6.12.0",
+    "@fastify/view": "^8.0.0",
+    "point-of-view": "^7.0.0",
+    "pg": "^8.11.3",
+    "node-cron": "^3.0.3",
+    "node-fetch": "^2.7.0",
+    "dotenv": "^16.3.1",
+    "moment": "^2.29.4",
+    "ejs": "^3.1.9"
+  },
+  "devDependencies": {
+    "nodemon": "^3.0.1"
+  }
+}

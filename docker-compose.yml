@@ -1,0 +1,44 @@
+version: '3.8'
+
+services:
+  # PostgreSQL база данных
+  postgres:
+    image: postgres:15-alpine
+    environment:
+      POSTGRES_DB: reminders
+      POSTGRES_USER: reminder_user
+      POSTGRES_PASSWORD: reminder_pass
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+  
+  # Веб-приложение
+  web:
+    build: .
+    depends_on:
+      - postgres
+    environment:
+      DATABASE_URL: postgresql://reminder_user:reminder_pass@postgres:5432/reminders
+      BOT_TOKEN: ${BOT_TOKEN:-dummy_token}
+      ADMIN_CHAT_ID: ${ADMIN_CHAT_ID:-123456789}
+      PORT: 3000
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./src:/app/src
+      - ./public:/app/public
+    command: npm run dev
+  
+  # Cron Job (имитация Render Cron)
+  scheduler:
+    build: .
+    depends_on:
+      - postgres
+    environment:
+      DATABASE_URL: postgresql://reminder_user:reminder_pass@postgres:5432/reminders
+      BOT_TOKEN: ${BOT_TOKEN:-dummy_token}
+    command: node src/bot/scheduler.js
+
+volumes:
+  postgres_data:
