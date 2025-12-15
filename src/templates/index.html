@@ -2,10 +2,55 @@
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Telegram Reminder Bot</title>
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
-    <h1>Telegram Reminder Bot</h1>
-    <p>Project structure created. Add your code here.</p>
+    <div class="container">
+        <header>
+            <h1><i class="fas fa-bell"></i> Telegram Reminder Bot</h1>
+            <p>Добавляйте напоминания и получайте их в Telegram</p>
+        </header>
+
+        <div class="card">
+            <h2><i class="fas fa-plus-circle"></i> Новое напоминание</h2>
+            <form id="reminderForm">
+                <div class="form-group">
+                    <label for="chatId">Chat ID (ваш ID в Telegram):</label>
+                    <input type="text" id="chatId" value="{{chat_id}}" required>
+                    <small>Получите через @userinfobot в Telegram</small>
+                </div>
+                
+                <div class="form-group">
+                    <label for="message">Сообщение:</label>
+                    <textarea id="message" rows="3" required placeholder="Что нужно напомнить?"></textarea>
+                </div>
+                
+                <div class="form-group">
+                    <label for="datetime">Дата и время:</label>
+                    <input type="datetime-local" id="datetime" required>
+                </div>
+                
+                <button type="submit" class="btn btn-primary">
+                    <i class="fas fa-save"></i> Сохранить напоминание
+                </button>
+            </form>
+        </div>
+
+        <div class="card">
+            <h2><i class="fas fa-list"></i> Мои напоминания</h2>
+
+            <div id="remindersList"></div>
+        </div>
+
+        <footer>
+            <p>Лабораторная работа: PaaS на примере Render.com</p>
+            <p>Использует: Node.js, Fastify, PostgreSQL, Telegram Bot API</p>
+        </footer>
+    </div>
+
+    <script src="/js/main.js"></script>
 </body>
 </html>
