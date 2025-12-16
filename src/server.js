@@ -33,6 +33,16 @@ fastify.get('/', async (request, reply) => {
   });
 });
 
+fastify.get('/api/run-scheduler', async (request, reply) => {
+  try {
+    const { sendReminders } = require('./bot/scheduler');
+    const result = await sendReminders();
+    return { success: true, ...result };
+  } catch (error) {
+    return { success: false, error: error.message };
+  }
+});
+
 // Запуск сервера
 const start = async () => {
   try {
